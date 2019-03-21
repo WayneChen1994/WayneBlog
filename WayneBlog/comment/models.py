@@ -10,7 +10,7 @@ class Comment(models.Model):
         (STATUS_DELETE, '删除'),
     )
 
-    target = models.ForeignKey(Post, verbose_name='评论目标')
+    target = models.CharField(max_length=100, verbose_name='评论目标')
     content = models.CharField(max_length=2000, verbose_name='内容')
     nickname = models.CharField(max_length=50, verbose_name='昵称')
     website = models.URLField(verbose_name='网站')
@@ -20,3 +20,19 @@ class Comment(models.Model):
 
     class Meta:
         verbose_name = verbose_name_plural = '评论'
+
+    @classmethod
+    def get_by_target(cls, target):
+        return cls.objects.filter(target=target, status=Comment.STATUS_NORMAL)
+
+    @property
+    def post_title_or_links(self):
+        # target: /post/7.html 或者是 /links/
+        if self.target.endswith('.html'):
+            import re
+            from django.shortcuts import get_object_or_404
+            post_id = re.findall(r'/post/(\d+)\.html', self.target)[0]
+            result = get_object_or_404(Post, id=post_id).title
+        else:
+            result = '友情链接'
+        return result

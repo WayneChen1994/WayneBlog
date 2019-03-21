@@ -1,6 +1,6 @@
 <ul>
     {% for comment in comments %}
-    <li><a href="{% url 'post-detail' comment.target_id %}">{{ comment.target.title }}</a></li>
-    {{ comment.nickname }} : {{ comment.content }}
+        <li><a href="{{ comment.target }}">{{ comment.post_title_or_links }}</a></li>
+            {{ comment.nickname }}<small>说：</small>{{ comment.content | truncatechars:80 }}
     {% endfor %}
 </ul>

@@ -1,5 +1,7 @@
 {% extends './base.html' %}
 
+{% load comment_block %}
+
 {% block title %} {{ post.title }} {% endblock %}
 
 
@@ -17,4 +19,5 @@
             {{ post.content }}
         </p>
     {% endif %}
+    {% comment_block request.path %}
 {% endblock %}
