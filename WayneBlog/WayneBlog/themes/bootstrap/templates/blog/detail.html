@@ -19,7 +19,7 @@
             <span>分类：<a href="{% url 'category-list' post.category_id %}">{{ post.category.name }}</a></span>
             <span>作者：<a href="{% url 'author' post.owner_id %}">{{ post.owner.username }}</a></span>
             <span>创建时间:{{ post.created_time }}</span>
-            <span>pv/uv:{{ post.pv }}/{{ post.uv }}</span>
+            <small>该文章已拥有<strong>{{ post.uv }}</strong>位读者，阅读量共计<strong>{{ post.pv }}</strong>次~</small>
         </div>
         <hr/>
         <p>
