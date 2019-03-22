@@ -1,6 +1,6 @@
 <ul>
     {% for comment in comments %}
-        <li><a href="{{ comment.target }}">{{ comment.post_title_or_links }}</a></li>
-            {{ comment.nickname }}<small>说：</small>{{ comment.content | truncatechars:80 }}
+        <li><a href="{{ comment.target }}">{{ comment.post_title_or_links }}</a><br>
+            {{ comment.nickname }}<small>说：</small>{% autoescape off %}{{ comment.content | truncatechars_html:100 }}{% endautoescape %}</li>
     {% endfor %}
 </ul>

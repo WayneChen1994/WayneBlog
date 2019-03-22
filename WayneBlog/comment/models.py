@@ -27,7 +27,6 @@ class Comment(models.Model):
 
     @property
     def post_title_or_links(self):
-        # target: /post/7.html 或者是 /links/
         if self.target.endswith('.html'):
             import re
             from django.shortcuts import get_object_or_404
