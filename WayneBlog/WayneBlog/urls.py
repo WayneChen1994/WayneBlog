@@ -4,6 +4,7 @@ from django.conf.urls import url
 from django.contrib import admin
 from django.contrib.sitemaps import views as sitemap_views
 
+from .autocomplete import CategoryAutocomplete, TagAutocomplete
 from blog.views import IndexView, CategoryView, TagView, PostDetailView, SearchView, AuthorView
 from blog.rss import LatestPostFeed
 from blog.sitemap import PostSitemap
@@ -11,6 +12,8 @@ from comment.views import CommentView
 from config.views import LinkListView
 
 urlpatterns = [
+    url(r'^admin/', xadmin.site.urls, name='xadmin'),
+    url(r'^super_admin/', admin.site.urls, name='super-admin'),
     url(r'^$', IndexView.as_view(), name='index'),
     url(r'^category/(?P<category_id>\d+)/$', CategoryView.as_view(), name='category-list'),
     url(r'^tag/(?P<tag_id>\d+)/$', TagView.as_view(), name='tag-list'),
@@ -21,6 +24,6 @@ urlpatterns = [
     url(r'^comment/$', CommentView.as_view(), name='comment'),
     url(r'^rss|feed/', LatestPostFeed(), name='rss'),
     url(r'^sitemap\.xml$', sitemap_views.sitemap, {'sitemaps': {'posts': PostSitemap}}),
-    url(r'^admin/', xadmin.site.urls, name='xadmin'),
-    url(r'^super_admin/', admin.site.urls, name='super-admin'),
+    url(r'^category-autocomplete/$', CategoryAutocomplete.as_view(), name='category-autocomplete'),
+    url(r'^tag-autocomplete/$', TagAutocomplete.as_view(), name='tag-autocomplete'),
 ]

@@ -30,6 +30,8 @@ ALLOWED_HOSTS = []
 
 INSTALLED_APPS = [
     'WayneBlog',
+    'dal',
+    'dal_select2',
     'xadmin',
     'crispy_forms',
     'blog',
