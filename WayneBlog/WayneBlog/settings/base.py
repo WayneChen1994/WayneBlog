@@ -30,6 +30,8 @@ ALLOWED_HOSTS = []
 
 INSTALLED_APPS = [
     'WayneBlog',
+    'xadmin',
+    'crispy_forms',
     'blog',
     'config',
     'comment',
@@ -118,3 +120,6 @@ STATIC_ROOT = '/tmp/static'
 STATICFILES_DIRS = [
     os.path.join(BASE_DIR, 'themes', THEME, 'static'),
 ]
+
+XADMIN_TITLE = 'WayneBlog 管理后台'
+XADMIN_FOOTER_TITLE = 'power by wayneblog.com'
