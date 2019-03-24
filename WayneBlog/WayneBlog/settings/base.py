@@ -34,6 +34,8 @@ INSTALLED_APPS = [
     'dal_select2',
     'xadmin',
     'crispy_forms',
+    'ckeditor',
+    'ckeditor_uploader',
     'blog',
     'config',
     'comment',
@@ -123,5 +125,22 @@ STATICFILES_DIRS = [
     os.path.join(BASE_DIR, 'themes', THEME, 'static'),
 ]
 
+MEDIA_URL = '/media/'
+MEDIA_ROOT = os.path.join(BASE_DIR, 'media')
+
+DEFAULT_FILE_STORAGE = 'WayneBlog.storage.WatermarkStorage'
+
 XADMIN_TITLE = 'WayneBlog 管理后台'
 XADMIN_FOOTER_TITLE = 'power by wayneblog.com'
+
+CKEDITOR_CONFIGS = {
+    'default': {
+        'toolbar': 'full',
+        'height': 300,
+        'width': 800,
+        'tabSpaces': 4,
+        'extraPlugins': 'codesnippet',  # 配置代码插件
+    }
+}
+
+CKEDITOR_UPLOAD_PATH = 'article_images'
