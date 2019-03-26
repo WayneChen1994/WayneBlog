@@ -1,5 +1,6 @@
 import re
 from blog.models import Post
+from django.db.models import Q
 
 
 class BaseOwnerAdmin:
@@ -16,16 +17,17 @@ class BaseOwnerAdmin:
             qs = qs.filter(owner=request.user)
         elif hasattr(qs.first(), 'target'):
             all_comment_target = qs.values_list('target', flat=True)
-            print('target: ', all_comment_target)
+            # 去除友链元素/links/对正则的影响
+            all_comment_target_without_links = [x for x in all_comment_target if x != '/links/']
             # 有评论的所有文章的id集合
-            all_post_ids_with_comment = set([int(re.search(r'\d+', target).group()) for target in all_comment_target])
+            all_post_ids_with_comment = set([int(re.search(r'\d+', target).group()) for target in all_comment_target_without_links])
             # 当前用户的所有文章的id集合
             current_user_post_ids = set(Post.objects.filter(status=Post.STATUS_NORMAL, owner=request.user).values_list('id', flat=True))
             # 当前用户的有评论的文章的id集合
             current_user_post_ids_with_comment = all_post_ids_with_comment & current_user_post_ids
             # 属于当前用户所发表文章的评论target集合
-            targets_of_current_user_posts = set(filter(lambda target: int(re.search(r'\d+', target).group()) in current_user_post_ids_with_comment, all_comment_target))
-            qs = qs.filter(target__in=targets_of_current_user_posts)
+            targets_of_current_user_posts = set(filter(lambda target: int(re.search(r'\d+', target).group()) in current_user_post_ids_with_comment, all_comment_target_without_links))
+            qs = qs.filter(Q(target__in=targets_of_current_user_posts) | Q(target='/links/'))
         return qs
 
     def save_models(self):
