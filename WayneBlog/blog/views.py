@@ -5,11 +5,14 @@ from django.db.models import Q, F
 from django.shortcuts import get_object_or_404
 from django.views.generic import ListView, DetailView
 
+from silk.profiling.profiler import silk_profile
+
 from .models import Post, Tag, Category
 from config.models import SideBar
 
 
 class CommonViewMixin:
+    @silk_profile(name='get_context_data')
     def get_context_data(self, **kwargs):
         context = super().get_context_data(**kwargs)
         context.update({
