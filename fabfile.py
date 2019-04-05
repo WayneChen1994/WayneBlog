@@ -73,10 +73,10 @@ def _ensure_virtualenv():
     run('python3.6 -m venv %s' % env.DEPLOY_PATH)
 
 
-def _reload_supervisoird(deploy_path, profile):
+def _reload_supervisord(deploy_path, profile):
     template_dir = 'conf'
     filename = 'supervisord.conf'
-    destination = env.DEPLOY_PATH
+    destination = deploy_path
     context = {
         'process_count': env.PROCESS_COUNT,
         'port_prefix': env.PORT_PREFIX,
@@ -107,5 +107,5 @@ def deploy(version, profile):
             env.PYPI_INDEX,
             env.PYPI_HOST,
         ))
-        _reload_supervisoird(env.DEPLOY_PATH, profile)
+        _reload_supervisord(env.DEPLOY_PATH, profile)
         run('echo yes | %s/bin/manage.py collectstatic' % env.DEPLOY_PATH)
