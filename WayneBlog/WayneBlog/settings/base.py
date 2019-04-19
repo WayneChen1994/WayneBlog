@@ -41,6 +41,7 @@ INSTALLED_APPS = [
     'blog',
     'config',
     'comment',
+    'captcha',
     'django.contrib.admin',
     'django.contrib.auth',
     'django.contrib.contenttypes',

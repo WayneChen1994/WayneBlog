@@ -28,7 +28,7 @@ EMAIL_SUBJECT_PREFIX = '来自【Wayne博客】的邮件'
 DEFAULT_FROM_EMAIL = 'waynechen1994@163.com'
 SERVER_EMAIL = 'waynechen1994@163.com'
 
-STATIC_ROOT = '/Users/wayne/WayneBlog/WayneBlog/WayneBlog/static_files/'
+STATIC_ROOT = os.path.join(BASE_DIR, 'static_files')
 
 LOGGING = {
     'version': 1,

@@ -16,7 +16,7 @@ from blog.views import IndexView, CategoryView, TagView, PostDetailView, SearchV
 from blog.rss import LatestPostFeed
 from blog.sitemap import PostSitemap
 from comment.apis import CommentViewSet
-from comment.views import CommentView
+from comment.views import CommentView, VerifyCaptcha
 from config.apis import LinkViewSet
 from config.views import LinkListView
 
@@ -47,6 +47,8 @@ urlpatterns = [
     # url(r'^api/', include(router.urls, namespace='api')), # 目前的Django REST Framework仍不支持namespace的reverse
     url(r'^api/', include(router.urls)),
     url(r'^api/docs/', include_docs_urls(title="WayneBlog's APIs")),
+    url(r'^captcha/', include('captcha.urls')),
+    url(r'^verify_captcha/', VerifyCaptcha.as_view(), name='verify_captcha'),
 ] + static(settings.MEDIA_URL, document_root=settings.MEDIA_ROOT)
 
 if settings.DEBUG:
