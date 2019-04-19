@@ -12,9 +12,55 @@ DATABASES = {
         'PASSWORD': '0831',
         'HOST': '127.0.0.1',
         'PORT': 3306,
-        'CONN_MAX_AGE': 5 * 60,
+        'CONN_MAX_AGE': 60,
         'OPTIONS': {'charset': 'utf8mb4'}
     },
+}
+
+ADMINS = MANAGERS = (
+    ('Wayne.Chen', 'waynechen1994@163.com'),
+)
+
+EMAIL_HOST = 'smtp.163.com'
+EMAIL_HOST_USER = 'waynechen1994@163.com'
+EMAIL_HOST_PASSWORD = '39miku0831'
+EMAIL_SUBJECT_PREFIX = '来自【Wayne博客】的邮件'
+DEFAULT_FROM_EMAIL = 'waynechen1994@163.com'
+SERVER_EMAIL = 'waynechen1994@163.com'
+
+STATIC_ROOT = '/Users/wayne/WayneBlog/WayneBlog/WayneBlog/static_files/'
+
+LOGGING = {
+    'version': 1,
+    'disable_existing_loggers': False,
+    'formatters': {
+        'default': {
+            'format': '%(levelname)s %(asctime)s %(module)s:'
+                      '%(funcName)s:%(lineno)d %(message)s'
+        },
+    },
+    'handlers': {
+        'console': {
+            'level': 'INFO',
+            'class': 'logging.StreamHandler',
+            'formatter': 'default',
+        },
+        'file': {
+            'level': 'INFO',
+            'class': 'logging.handlers.RotatingFileHandler',
+            'filename': '/tmp/logs/WayneBlog.log',
+            'formatter': 'default',
+            'maxBytes': 1024 * 1024,    # 1M
+            'backupCount': 5,
+        },
+    },
+    'loggers': {
+        '': {
+            'handlers': ['console'],
+            'level': 'INFO',
+            'propagate': True,
+        },
+    }
 }
 
 REDIS_URL = '127.0.0.1:6379:1'
